@@ -28,8 +28,8 @@ def save(posts, file_path):
         json.dump(posts, file, indent=5)
 
 def main():
-    n = int(input("Enter the number of posts (1-10): "))
-    n = max(1, min(n, 10))
+    n = int(input("Enter the number of posts (1-100): "))
+    n = max(1, min(n, 100))
     posts = create_posts(n)
     save(posts, "./data/notes.json")
 
