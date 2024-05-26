@@ -90,6 +90,7 @@ const Btns: React.FC<BtnsProps> = ({ numOfPage, setNumOfPage, list }) => {
       {pagesToShow.map((pageIndex) => (
         <button
           key={pageIndex}
+          className='btn-page'
           onClick={() => handleClickPage(pageIndex)}
           disabled={numOfPage === pageIndex}
         >
@@ -122,9 +123,6 @@ export default function Home(): JSX.Element {
       <Page page={page} />
     </div>
   ));
-  const clone: Note[][] = (toShow as JSX.Element[]).map((element) => {
-    return (element.props.page as Note[]);
-  }).slice(0, 5);
   
   return (
     <main>
