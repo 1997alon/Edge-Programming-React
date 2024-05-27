@@ -17,9 +17,6 @@
     cursor: pointer;
 }
 
-.btns button:hover {
+.btns :hover {
     background-color: #bbc3cc;
-}
-.btns + .page {
-    background-color: rgba(0, 0, 0, 0.5);
 }

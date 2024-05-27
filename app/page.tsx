@@ -81,26 +81,26 @@ const Btns: React.FC<BtnsProps> = ({ numOfPage, setNumOfPage, list }) => {
 
   return (
     <div className='btns'>
-      <button onClick={handleClickFirst} disabled={numOfPage === 0}>
+      <button name='first' onClick={handleClickFirst} disabled={numOfPage === 0}>
         First
       </button>
-      <button onClick={handleClickPrevious} disabled={numOfPage === 0}>
+      <button name='previous' onClick={handleClickPrevious} disabled={numOfPage === 0}>
         Previous
       </button>
       {pagesToShow.map((pageIndex) => (
         <button
           key={pageIndex}
-          className='btn-page'
+          name={`page-${pageIndex + 1}`}
           onClick={() => handleClickPage(pageIndex)}
           disabled={numOfPage === pageIndex}
         >
-          Page {pageIndex + 1}
+         {pageIndex + 1}
         </button>
       ))}
-      <button onClick={handleClickNext} disabled={numOfPage === list.length - 1}>
+      <button name='next' onClick={handleClickNext} disabled={numOfPage === list.length - 1}>
         Next
       </button>
-      <button onClick={handleClickLast} disabled={numOfPage === list.length - 1}>
+      <button name='last' onClick={handleClickLast} disabled={numOfPage === list.length - 1}>
         Last
       </button>
     </div>
