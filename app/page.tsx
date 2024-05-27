@@ -43,7 +43,7 @@ interface BtnsProps {
   list: any[];
 }
 
-const Btns: React.FC<BtnsProps> = ({ numOfPage, setNumOfPage, list }) => {
+function Btns({ numOfPage, setNumOfPage, list }: BtnsProps) {
   const handleClickNext = (): void => {
     if (numOfPage < list.length - 1) {
       setNumOfPage(numOfPage+1);
