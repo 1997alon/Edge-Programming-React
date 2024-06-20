@@ -16,7 +16,6 @@ export default function Post({ post, index }: { post: Note; index: number }) {
       <h2 className='post-title'>{post.title} </h2>
       <small>By {post.author.name}</small>
       <br></br>
-      <p>{index+1}</p>
       <p className='content'>
         {post.content}
       </p>
