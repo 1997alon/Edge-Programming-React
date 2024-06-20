@@ -41,7 +41,7 @@ export default function Home(): JSX.Element {
   return (
     <main>
       <div>
-        <Pages page={notes} />
+        <Pages page={notes} numOfPage={numOfPage}/>
         <Btns numOfPage={numOfPage} setNumOfPage={setNumOfPage} total={total} />
       </div>
     </main>
