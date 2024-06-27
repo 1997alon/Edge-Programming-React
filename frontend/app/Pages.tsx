@@ -16,7 +16,7 @@ export default function Pages(props: any) {
 
     return (props.page.map((post: Note, index: number) =>
       <div className='page' id={(index + 1).toString()} key={(index + 1)}>{
-        <Post key={post.id} post={post} id={post.id} editNote={props.editNote} delete = {props.deletePost} />
+        <Post key={post.id} post={post} id={post.id} editNote={props.editNote} delete = {props.deletePost} notes={props.notes}/>
       }</div>
     ));
   

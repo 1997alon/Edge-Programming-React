@@ -30,7 +30,6 @@ export default function Home(): JSX.Element {
   const [count, setCount] = useState<number>(2);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [theme, setTheme] = useState<boolean>(false);
-  console.log(count);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -119,26 +118,34 @@ export default function Home(): JSX.Element {
     }
   }
 
-  const deletePost = (id: number) => {
+  const deletePost = (index: number, id: number) => {
     if (notes.length > 1) {
-      const updatedNotes = notes.filter(note => note.id !== id);
-      setNotes(updatedNotes);
-      deleteNote(id);
-      setTotal(Math.ceil(updatedNotes.length / POSTS_PER_PAGE));
-      if (total > Math.ceil(updatedNotes.length / POSTS_PER_PAGE)) {
-        setNumOfPage(0);
+
+      if (index !== -1) {
+        notes.splice(index, 1);
+        const updatedNotes = [...notes]
+        setNotes(updatedNotes);
+        deleteNote(id, index);
+        setTotal(Math.ceil(updatedNotes.length / POSTS_PER_PAGE));
+        if (total > Math.ceil(updatedNotes.length / POSTS_PER_PAGE)) {
+          setNumOfPage(0);
+        }
       }
+     
     }
   }
 
-  const deleteNote = async (id: number) => {
+  const deleteNote = async (id: number, index: number) => {
     try {
-      await axios.delete(`${NOTES_URL}/${id}`);
+      await axios.delete(`${NOTES_URL}/${index+1}`, {
+        data: { id: id }
+      });
     } catch (error) {
+      console.error('Error deleting note:', error);
       throw error;
     }
   }
-  const handletheme= ()=>{
+  const handletheme = () => {
     setTheme(prevTheme => !prevTheme);
     document.body.classList.toggle('dark');
   }
@@ -147,7 +154,7 @@ export default function Home(): JSX.Element {
       <div>{openModal && <Modal handleAdding={handleAdding} handleAddingCancel={handleAddingCancel} />}
         <div>
           <button className='change_theme' name='change_theme' onClick={handletheme}>Theme</button>
-          <Pages page={notes.slice(numOfPage * 10, numOfPage * 10 + 10)} editNote={editNote} deletePost={deletePost} />
+          <Pages page={notes.slice(numOfPage * 10, numOfPage * 10 + 10)} editNote={editNote} deletePost={deletePost} notes={notes} />
           <div className='add_new_note'>
             <button className='add_new_note' name='add_new_note' onClick={handleAdd}>Add new note</button>
           </div>

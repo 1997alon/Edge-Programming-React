@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config(); 
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || ourPort;
@@ -43,44 +43,43 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       author: {
         name: String,
         email: String,
-      } ,
+      },
       content: String
     });
 
     const Note = mongoose.model('Note', noteSchema);
 
-      nt = '/notes/:id'
-      app.delete(nt, async (req, res) => {
-        const { id } = req.params;
-        try {
-          const deletedNote = await Note.findOneAndDelete({ id: id });
-
-          if (!deletedNote) {
-            return res.status(status404).json("Error");
-          }
-          else{
-            return res.status(status204).json('success');
-          }
-
-        } catch {
-          res.status(status500).json("Error");
+    nt = '/notes/:index';
+    app.delete(nt, async (req, res) => {
+      const { id } = req.body;
+      try {
+        const idToDelete = await Note.findOneAndDelete({ id: id });
+        if (!idToDelete) {
+          return res.status(404).json("Error");
         }
-      });
-
-      nt = '/notes/:id'
-      app.get(nt, async (req, res) => {
-        const noteId = parseInt(req.params.id, 10); 
-        try {
-          const note = await Note.findOne({ id: noteId });
-          if (note) {
-            res.status(status200).json(note);
-          } else {
-            res.status(status404).json('Error'); 
-          }
-        } catch  {
-          res.status(status500).json('Error');
+        else {
+          return res.status(status204).json('success');
         }
-      });
+
+      } catch {
+        res.status(status500).json("Error");
+      }
+    });
+
+    nt = '/notes/:id'
+    app.get(nt, async (req, res) => {
+      const noteId = parseInt(req.params.id, 10);
+      try {
+        const note = await Note.findOne({ id: noteId });
+        if (note) {
+          res.status(status200).json(note);
+        } else {
+          res.status(status404).json('Error');
+        }
+      } catch {
+        res.status(status500).json('Error');
+      }
+    });
 
     nt = '/notes'
     app.post(nt, (request, response) => {
@@ -99,16 +98,16 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
           console.log('Note saved');
           response.status(status201).json(savedNote);
         })
-        .catch( () => {
+        .catch(() => {
           response.status(status500).json("Error");
         });
     });
-    
+
     nt = '/notes/:id'
     app.put(nt, async (req, res) => {
       const { id } = req.params;
       const { title, content, author } = req.body;
-    
+
       try {
         const updatedNote = await Note.findOneAndUpdate(
           { id: parseInt(id) },
@@ -120,9 +119,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
             },
             content
           },
-          { new: true } 
+          { new: true }
         );
-  
+
         if (!updatedNote) {
           return res.status(status404).json("Error");
         }
@@ -131,13 +130,13 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         return res.status(status500).json("Error");
       }
     });
-    
+
 
     nt = '/notes'
     app.get(nt, async (req, res) => {
       try {
         const notes = await Note.find();
-        res.status(status200).json(notes); 
+        res.status(status200).json(notes);
       } catch {
         console.log("Get did not work");
         res.status(status500).json('Error');
@@ -148,7 +147,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
-    })
-    .catch(() => {
-      console.log(er);
-    });
+  })
+  .catch(() => {
+    console.log(er);
+  });

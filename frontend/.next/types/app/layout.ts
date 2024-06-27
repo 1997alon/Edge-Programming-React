@@ -1,4 +1,4 @@
-// File: C:\Users\yoavb\Desktop\CS\תכנות קצה\edge-programming-2\frontend\app\layout.tsx
+// File: C:\Users\yoavb\Desktop\CS\תכנות קצה\edge-programming-1\frontend\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

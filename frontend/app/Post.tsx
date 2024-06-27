@@ -28,7 +28,13 @@ export default function Post(props: any) {
     setContent(props.post.content);
   }
   const handleDelete = () => {
-    props.delete(props.id);
+    let findIndex = -1
+    for (let i = 0; i<props.notes.length; i++){
+      if (props.notes[i].id === props.id){
+        findIndex = i
+      }
+    }
+    props.delete(findIndex, props.id);
   }
     return (<div className='note' id={(props.id).toString()}>{openModalEdit && <ModalEdit setOpenModalEdit={setOpenModalEdit} editNote={props.editNote} title={title} name={name} email={email} content={content} setTitle={setTitle} setName={setName} setEmail={setEmail} setContent={setContent} id={props.id}/>}
       <h2 className='post-title'>{props.post.title} </h2>
