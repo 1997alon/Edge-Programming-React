@@ -1,0 +1,40 @@
+.page {
+    text-align: center;
+    margin-top: 10%;
+}
+
+.btns {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center; 
+    gap: 1%; 
+}
+
+.btns button {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: transparent;
+    cursor: pointer;
+}
+
+.btns :hover {
+    background-color: #bbc3cc;
+}
+.add_new_note {
+    margin-top: 7%;
+    display: flex;
+    justify-content: center; 
+}
+.add_new_note button{
+    padding: 8px 12px;
+    font-size: 16px;
+    border: transparent;
+    cursor: pointer;
+}
+.change_theme{
+    font-weight: bold;
+    border: transparent;
+    background-color: rgb(175, 174, 174);
+    font-size: larger;
+    cursor: pointer;
+}
