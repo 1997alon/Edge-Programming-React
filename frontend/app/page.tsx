@@ -91,7 +91,7 @@ export default function Home(): JSX.Element {
     }
   }
 
-  const editNote = (id: number, title: string, content: string, name: string, email: string) => {
+  const editNote = (index: number, id: number, title: string, content: string, name: string, email: string) => {
     const toEdit: Note = {
       id: id,
       title: title,
@@ -101,18 +101,23 @@ export default function Home(): JSX.Element {
       },
       content: content
     };
-    const index = notes.findIndex(note => note.id === id);
     if (index !== -1) {
       const updatedNotes = [...notes];
       updatedNotes[index] = toEdit;
       setNotes(updatedNotes);
+      editNewNote(index, toEdit);
+
     }
-    editNewNote(toEdit);
   };
 
-  const editNewNote = async (edit: Note) => {
+  const editNewNote = async (index: number, edit: Note) => {
     try {
-      await axios.put(`${NOTES_URL}/${edit.id}`, edit);
+      await axios.put(`${NOTES_URL}/${index + 1}`, {
+        id: edit.id,
+        title: edit.title,
+        content: edit.content,
+        author: edit.author
+      });
     } catch (error) {
       throw error;
     }

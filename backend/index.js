@@ -103,10 +103,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         });
     });
 
-    nt = '/notes/:id'
+    nt = '/notes/:index'
     app.put(nt, async (req, res) => {
-      const { id } = req.params;
-      const { title, content, author } = req.body;
+      const { id, title, content, author } = req.body;
 
       try {
         const updatedNote = await Note.findOneAndUpdate(
