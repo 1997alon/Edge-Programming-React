@@ -43,7 +43,7 @@ export default function ModalEdit(props: any) {
         <div className="modal-container">
             <div className="modal">
                 <h1 id="h1Edit">Edit</h1>
-                <div className="text_input_new_note">
+                <div className={"text_input-" + props.id.toString()}>
                     <div className="add-title">
                         <label className="add-label-title">Title:</label>
                         <input className="titleAdd"
