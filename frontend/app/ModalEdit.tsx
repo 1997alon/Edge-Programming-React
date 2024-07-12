@@ -1,18 +1,11 @@
 import React, { useState } from "react"
 import "./modal-edit.css";
-
 export default function ModalEdit(props: any) {
 
 
     const handleSave = (event: any) => {
         event.preventDefault();
-        let findIndex = -1
-        for (let i = 0; i<props.notes.length; i++){
-          if (props.notes[i].id === props.id){
-            findIndex = i
-          }
-        }
-        props.editNote(findIndex, props.id, props.title, props.content, props.name, props.email);
+        props.editNote(props.id, props.title, props.content, props.name, props.email);
         props.setOpenModalEdit(false);
 
     };

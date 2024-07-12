@@ -49,7 +49,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
     const Note = mongoose.model('Note', noteSchema);
 
-    nt = '/notes/:index';
+    nt = '/notes/:id';
     app.delete(nt, async (req, res) => {
       const { id } = req.body;
       try {
@@ -103,7 +103,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         });
     });
 
-    nt = '/notes/:index'
+    nt = '/notes/:id'
     app.put(nt, async (req, res) => {
       const { id, title, content, author } = req.body;
 
@@ -124,7 +124,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         if (!updatedNote) {
           return res.status(status404).json("Error");
         }
-        return res.status(status201).json(updatedNote);
+        return res.status(status200).json(updatedNote);
       } catch {
         return res.status(status500).json("Error");
       }
@@ -134,19 +134,26 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     nt = '/notes'
     app.get(nt, async (req, res) => {
       try {
-        const notes = await Note.find();
-        res.status(status200).json(notes);
+        const numOfPage = parseInt(req.query._page); 
+        const POSTS_PER_PAGE = parseInt(req.query._per_page) || 10;
+    
+        const notes = await Note.find()
+          .skip((numOfPage-1) * POSTS_PER_PAGE) 
+          .limit(POSTS_PER_PAGE);
+    
+        const totalItems = await Note.countDocuments(); 
+        const totalPagesCount = Math.ceil(totalItems / POSTS_PER_PAGE);
+        res.status(200).json({ notes, totalPagesCount });
       } catch {
         console.log("Get did not work");
         res.status(status500).json('Error');
       }
     });
 
-    er = 'Error connecting to MongoDB'
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
   })
-  .catch(() => {
-    console.log(er);
+  .catch((er) => {
+    console.log(er + ' Error connecting to MongoDB');
   });

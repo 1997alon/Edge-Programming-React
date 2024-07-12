@@ -7,7 +7,6 @@ import Pages from './Pages';
 import Btns from './Btns';
 import Modal from './Modal';
 
-
 const NOTES_URL = 'http://localhost:3001/notes';
 const POSTS_PER_PAGE = 10;
 
@@ -35,14 +34,13 @@ export default function Home(): JSX.Element {
       try {
         const response = await axios.get(NOTES_URL, {
           params: {
-            _page: numOfPage,
-            _per_page: POSTS_PER_PAGE
+            _page: numOfPage + 1,
+            _per_page: 10
           }
         });
-        setNotes(response.data);
-        const totalItems = response.data.length;
-        const totalPagesCount = Math.ceil(totalItems / POSTS_PER_PAGE);
-        setTotal(totalPagesCount);
+      
+        setNotes(response.data.notes);
+        setTotal(response.data.totalPagesCount);
 
       } catch (error) {
         console.error('Encountered an error:', error);
@@ -91,7 +89,7 @@ export default function Home(): JSX.Element {
     }
   }
 
-  const editNote = (index: number, id: number, title: string, content: string, name: string, email: string) => {
+  const editNote = (id: number, title: string, content: string, name: string, email: string) => {
     const toEdit: Note = {
       id: id,
       title: title,
@@ -101,18 +99,14 @@ export default function Home(): JSX.Element {
       },
       content: content
     };
-    if (index !== -1) {
-      const updatedNotes = [...notes];
-      updatedNotes[index] = toEdit;
-      setNotes(updatedNotes);
-      editNewNote(index, toEdit);
-
-    }
+    const updatedNotes = notes.map(note => note.id === id ? toEdit : note);
+    setNotes(updatedNotes);
+    editNewNote(id, toEdit);
   };
 
-  const editNewNote = async (index: number, edit: Note) => {
+  const editNewNote = async (id: number, edit: Note) => {
     try {
-      await axios.put(`${NOTES_URL}/${index + 1}`, {
+      await axios.put(`${NOTES_URL}/${id}`, {
         id: edit.id,
         title: edit.title,
         content: edit.content,
@@ -123,26 +117,22 @@ export default function Home(): JSX.Element {
     }
   }
 
-  const deletePost = (index: number, id: number) => {
-    if (notes.length > 1) {
-
-      if (index !== -1) {
-        notes.splice(index, 1);
-        const updatedNotes = [...notes]
-        setNotes(updatedNotes);
-        deleteNote(id, index);
-        setTotal(Math.ceil(updatedNotes.length / POSTS_PER_PAGE));
-        if (total > Math.ceil(updatedNotes.length / POSTS_PER_PAGE)) {
-          setNumOfPage(0);
-        }
+  const deletePost = (id: number) => {
+    if (notes.length > 1 || numOfPage>0) {
+      const updatedNotes = notes.filter(note => note.id !== id);
+      setNotes(updatedNotes);
+      deleteNote(id);
+      setTotal(Math.ceil(updatedNotes.length / POSTS_PER_PAGE));
+      if (total > Math.ceil(updatedNotes.length / POSTS_PER_PAGE)) {
+        setNumOfPage(0);
       }
-     
+
     }
   }
 
-  const deleteNote = async (id: number, index: number) => {
+  const deleteNote = async (id: number) => {
     try {
-      await axios.delete(`${NOTES_URL}/${index+1}`, {
+      await axios.delete(`${NOTES_URL}/${id}`, {
         data: { id: id }
       });
     } catch (error) {
@@ -159,7 +149,7 @@ export default function Home(): JSX.Element {
       <div>{openModal && <Modal handleAdding={handleAdding} handleAddingCancel={handleAddingCancel} />}
         <div>
           <button className='change_theme' name='change_theme' onClick={handletheme}>Theme</button>
-          <Pages page={notes.slice(numOfPage * 10, numOfPage * 10 + 10)} editNote={editNote} deletePost={deletePost} notes={notes} />
+          <Pages page={notes} editNote={editNote} deletePost={deletePost} notes={notes} numOfPage={numOfPage} />
           <div className='add_new_note'>
             <button className='add_new_note' name='add_new_note' onClick={handleAdd}>Add new note</button>
           </div>
