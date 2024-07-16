@@ -4,16 +4,16 @@ import "./modal.css";
 export default function Modal(props:any){
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
-    const [name, setName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
+    // const [name, setName] = useState<string>("");
+    // const [email, setEmail] = useState<string>("");
 
     const handleSave = (event:any) => {
         event.preventDefault();
-        props.handleAdding(title,content,name,email);
+        props.handleAdding(title,content);
         setTitle("");
         setContent("");
-        setName("");
-        setEmail("");
+        // setName("");
+        // setEmail("");
  
     };
     const handleCancel = (event:any) => {
@@ -29,13 +29,13 @@ export default function Modal(props:any){
         setContent(event.target.value);
     };
 
-    const handleName = (event:any) => {
-        setName(event.target.value);
-    };
+    // const handleName = (event:any) => {
+    //     setName(event.target.value);
+    // };
 
-    const handleEmail = (event:any) => {
-        setEmail(event.target.value);
-    };
+    // const handleEmail = (event:any) => {
+    //     setEmail(event.target.value);
+    // };
 
     return (
         <div className="modal-container">
@@ -61,7 +61,7 @@ export default function Modal(props:any){
                     onChange={handleContent} 
                 />
                 </div>
-                <div className="add-name">
+                {/* <div className="add-name">
                 <label className="add-label-name">Name:</label>
                 <input className="nameAdd"
                 name="text_input_new_note"
@@ -79,7 +79,7 @@ export default function Modal(props:any){
                     value={email} 
                     onChange={handleEmail} 
                 />
-                </div>
+                </div> */}
                 </div>
                 <button className="text_input_save_new_note" name="text_input_save_new_note" onClick={handleSave}>Save</button>
                 <button className="text_input_cancel_new_note" name="text_input_cancel_new_note" onClick={handleCancel}>Cancel</button>
