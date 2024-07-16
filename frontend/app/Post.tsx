@@ -37,10 +37,12 @@ export default function Post(props: any) {
       <p className='content'>
         {props.post.content}
       </p>
+      {props.login && (
       <div className='edit-delete'>
       <button className={`edit-${props.id}`} name={`edit-${props.id}`} onClick={handleEdit}>Edit</button>
       <button className={`delete-${props.id}`} name={`delete-${props.id}`} onClick={handleDelete}>Delete</button>
       </div>
+      )}
     </div>
     );
   }
