@@ -62,7 +62,7 @@ export default function Home(): JSX.Element {
 
         setNotes(response.data.notes);
         setTotal(response.data.totalPagesCount);
-
+      
       } catch (error) {
         console.error('Encountered an error:', error);
       }
@@ -273,7 +273,24 @@ export default function Home(): JSX.Element {
           {openModal && <Modal handleAdding={handleAdding} handleAddingCancel={handleAddingCancel} />}
           <div>
             <button className='change_theme' name='change_theme' onClick={handletheme} >Theme</button>
-            <Pages page={notes} editNote={editNote} deletePost={deletePost} notes={notes} numOfPage={numOfPage} login={login} />
+            <Pages page={(() => {
+                let startIdx = 0;
+                // cache
+                if (total <= 5 || numOfPage<=4) {
+                  startIdx = numOfPage * 10;
+                }
+                if (numOfPage - 2 >= 0 && numOfPage + 2 <= total) {
+                  startIdx = 20;
+                }
+                else if (numOfPage === total - 1) {
+                  startIdx = 40;
+                }
+                else if (numOfPage === total - 2) {
+                  startIdx = 30;
+                }
+                return notes;
+              })()}
+             editNote={editNote} deletePost={deletePost} notes={notes} numOfPage={numOfPage} login={login} />
             {login && (
               <div>
                 <div className='add_new_note'>
