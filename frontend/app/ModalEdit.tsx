@@ -56,7 +56,7 @@ export default function ModalEdit(props: any) {
                             onChange={handleContent}
                         />
                     </div>
-                    <div className="add-name">
+                    {/* <div className="add-name">
                         <label className="add-label-name">Name:</label>
                         <input className="nameAdd"
                             name={"text_input-" + props.id.toString()}
@@ -75,7 +75,7 @@ export default function ModalEdit(props: any) {
                             value={props.email}
                             onChange={handleEmail}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 <button className={`text_input_save-${props.id}`} name={`text_input_save-${props.id}`} onClick={handleSave}>Save</button>
                 <button className={`text_input_cancel-${props.id}`} name={`text_input_cancel-${props.id}`} onClick={handleCancel}>Cancel</button>
