@@ -5,7 +5,7 @@ status404 = 404
 status201 = 201
 status400 = 400
 status204 = 204
-
+limitNotes = 50
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -150,13 +150,14 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       try {
         const numOfPage = parseInt(req.query._page);
         const POSTS_PER_PAGE = parseInt(req.query._per_page) || 10;
-
+        const end = Math.min(total, 5);
+        let start = Math.min(numOfPage - 2, total - end);
+        start = Math.max(0, start);
         const notes = await Note.find()
-          .skip((numOfPage - 1) * POSTS_PER_PAGE)
-          .limit(POSTS_PER_PAGE);
+          .skip(start * POSTS_PER_PAGE)
+          .limit(limitNotes);
 
-        const totalItems = await Note.countDocuments();
-        const totalPagesCount = Math.ceil(totalItems / POSTS_PER_PAGE);
+        
         res.status(200).json({ notes, totalPagesCount });
       } catch {
         console.log("Get did not work");
