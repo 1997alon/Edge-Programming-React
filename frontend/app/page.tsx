@@ -303,7 +303,7 @@ export default function Home(): JSX.Element {
             )}
             <div className='create-login'>
               <button className='create_user_form' name='create_user_form' onClick={handleAddUser}>Create new user</button>
-              <button className='login_form_login' name='login_form_login' onClick={handleAddLogin}>Login</button>
+              <button className='login_form' name='login_form' onClick={handleAddLogin}>Login</button>
               <Btns numOfPage={numOfPage} setNumOfPage={setNumOfPage} total={total} />
             </div>
           </div>
