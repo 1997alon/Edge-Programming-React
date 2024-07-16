@@ -35,7 +35,7 @@ interface BtnsProps {
     const end = Math.min(total, 5);
     let start = Math.min(numOfPage - 2, total - end);
     start = Math.max(0, start);
-    for (let i = 0; i < start + end; i++) {
+    for (let i = start; i < start + end; i++) {
       pagesToShow.push(i);
     }
     return (
