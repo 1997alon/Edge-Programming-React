@@ -51,7 +51,7 @@ export default function ModalLogin(props:any){
                 />
                 </div>
                 </div>
-                <button className="login_form" name="login_form" onClick={handleLogin}>Login</button>
+                <button className="login_form_login" name="login_form_login" onClick={handleLogin}>Login</button>
                 <button className="cancel" name="cancel" onClick={handleCancel}>Cancel</button>
                 </div>
         
