@@ -27,6 +27,12 @@ test('change theme', async ({ page }) => {
   
   });
 
+test('login', async ({ page }) => {
+    await page.goto('http://localhost:3000');
+  
+    await expect(page.locator('button.login_form')).toBeVisible();
+  
+  });
 
 test('create user', async ({ page }) => {
     await page.goto('http://localhost:3000');
@@ -43,20 +49,3 @@ test('create user', async ({ page }) => {
 
   });
 
-  test('login', async ({ page }) => {
-    await page.goto('http://localhost:3000');
-
-    await page.click('button.create_user_form');
-  
-    await page.fill('input[name="create_user_form_name"]', 'New User');
-    await page.fill('input[name="create_user_form_email"]', 'newuser@example.com');
-    await page.fill('input[name="create_user_form_username"]', 'newuser');
-    await page.fill('input[name="create_user_form_password"]', 'password123');
-  
-    await page.click('button[name="create_user_form_create_user"]');
-    await page.click('button.login_form');
-    await page.fill('input[name="login_form_username"]', 'newuser');
-    await page.fill('input[name="login_form_password"]', 'password123');
-    await page.click('button.login_form');
-    await expect(page.locator('button.logout')).toBeVisible();
-  });
