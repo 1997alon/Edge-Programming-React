@@ -61,7 +61,8 @@ export default function Home(): JSX.Element {
         });
 
         setNotes(response.data.notes);
-        setTotal(response.data.totalPagesCount);
+        setTotal(response.data.total);
+        console.log(response.data.total);
       
       } catch (error) {
         console.error('Encountered an error:', error);
@@ -288,7 +289,7 @@ export default function Home(): JSX.Element {
                 else if (numOfPage === total - 2) {
                   startIdx = 30;
                 }
-                return notes;
+                return notes.slice(startIdx, startIdx+10);
               })()}
              editNote={editNote} deletePost={deletePost} notes={notes} numOfPage={numOfPage} login={login} />
             {login && (
