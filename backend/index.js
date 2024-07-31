@@ -150,6 +150,8 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       try {
         const numOfPage = parseInt(req.query._page);
         const POSTS_PER_PAGE = parseInt(req.query._per_page) || 10;
+        let total = await Note.countDocuments();
+        total = Math.ceil(total / POSTS_PER_PAGE);
         const end = Math.min(total, 5);
         let start = Math.min(numOfPage - 2, total - end);
         start = Math.max(0, start);
@@ -158,9 +160,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
           .limit(limitNotes);
 
         
-        res.status(200).json({ notes, totalPagesCount });
-      } catch {
-        console.log("Get did not work");
+        res.status(200).json({ notes, total });
+      } catch (error) {
+        console.error('Get did not work:', error);
         res.status(status500).json('Error');
       }
     });
