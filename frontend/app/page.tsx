@@ -280,7 +280,7 @@ export default function Home(): JSX.Element {
                 if (total <= 5 || numOfPage<=4) {
                   startIdx = numOfPage * 10;
                 }
-                if (numOfPage - 2 >= 0 && numOfPage + 2 <= total) {
+                else if (numOfPage - 2 >= 0 && numOfPage + 2 <= total) {
                   startIdx = 20;
                 }
                 else if (numOfPage === total - 1) {
