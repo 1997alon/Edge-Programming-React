@@ -1,3 +1,38 @@
+
+
+# Edge Programming React  
+
+This project is built using **React**, **Node.js**, **Next.js**, and **MongoDB**.  
+
+## Features  
+- **User Authentication**: Create an account and log in.  
+- **Post Management**: Upload posts, edit them, and manage your content.  
+- **Pagination**: Each page displays a maximum of **10 posts**.  
+- **Navigation**: Easily navigate between pages, including **first** and **last**.  
+
+## Technologies Used  
+- **React** – Frontend framework for building the UI.  
+- **Next.js** – Server-side rendering and routing.  
+- **Node.js** – Backend runtime environment.  
+- **MongoDB** – Database for storing user accounts and posts.  
+
+## Installation  
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/1997alon/Edge-Programming-React.git
+
+
+
+
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
